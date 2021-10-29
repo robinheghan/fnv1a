@@ -1,0 +1,14 @@
+{
+  "name": "elm-fnv-1a",
+  "version": "1.0.0",
+  "description": "An Elm implementation of the FNV-1a hash algorithm",
+  "scripts": {
+    "test": "elm-test"
+  },
+  "author": "Robin Heggelund Hansen",
+  "license": "MIT",
+  "devDependencies": {
+    "elm": "^0.19.1-5",
+    "elm-test": "^0.19.1-revision7"
+  }
+}
