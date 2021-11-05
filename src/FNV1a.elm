@@ -1,6 +1,11 @@
-module FNV1a exposing (hash, hashWithSeed)
+module FNV1a exposing
+    ( hash
+    , hashWithSeed
+    , initialSeed
+    )
 
 import Bitwise
+import String.UTF8
 
 
 
@@ -14,23 +19,23 @@ initialSeed =
 
 hash : String -> Int
 hash str =
-    hashWithSeed initialSeed str
+    hashWithSeed str initialSeed
 
 
-hashWithSeed : Int -> String -> Int
-hashWithSeed seed str =
-    Bitwise.shiftRightZfBy 0 (String.foldl hasher seed str)
+hashWithSeed : String -> Int -> Int
+hashWithSeed str seed =
+    Bitwise.shiftRightZfBy 0 (String.UTF8.foldl hasher seed str)
 
 
-hasher : Char -> Int -> Int
-hasher char hashValue =
+hasher : Int -> Int -> Int
+hasher byte hashValue =
     let
-        withCharCode =
-            Bitwise.xor (Char.toCode char) hashValue
+        mixed =
+            Bitwise.xor byte hashValue
     in
-    withCharCode
-        + Bitwise.shiftLeftBy 1 withCharCode
-        + Bitwise.shiftLeftBy 4 withCharCode
-        + Bitwise.shiftLeftBy 7 withCharCode
-        + Bitwise.shiftLeftBy 8 withCharCode
-        + Bitwise.shiftLeftBy 24 withCharCode
+    mixed
+        + Bitwise.shiftLeftBy 1 mixed
+        + Bitwise.shiftLeftBy 4 mixed
+        + Bitwise.shiftLeftBy 7 mixed
+        + Bitwise.shiftLeftBy 8 mixed
+        + Bitwise.shiftLeftBy 24 mixed
