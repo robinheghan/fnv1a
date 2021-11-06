@@ -7,10 +7,6 @@ module FNV1a exposing
 import Bitwise as Bit
 
 
-
-{- Implementation has been ported from here: https://gist.github.com/vaiorabbit/5657561 -}
-
-
 initialSeed : Int
 initialSeed =
     0x811C9DC5
@@ -56,6 +52,7 @@ utf32ToUtf8 char acc =
 
 hasher : Int -> Int -> Int
 hasher byte hashValue =
+    {- Implementation ported from : https://gist.github.com/vaiorabbit/5657561 -}
     let
         mixed =
             Bit.xor byte hashValue
