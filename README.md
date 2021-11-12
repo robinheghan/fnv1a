@@ -10,4 +10,4 @@ Hashing a equal strings will return the same hash value. Hashing inequal strings
 
 Read more about how [FNV-1a compares against other hash functions](https://softwareengineering.stackexchange.com/questions/49550/which-hashing-algorithm-is-best-for-uniqueness-and-speed/145633#145633).
 
-You can also read more about how [FNV-1a is a good hash function for Elm]().
+You can also read more about how [FNV-1a is a good hash function for Elm](https://github.com/robinheghan/fnv1a/blob/main/docs/why_fnv_is_great_for_elm.md).
