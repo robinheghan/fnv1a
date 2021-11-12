@@ -3,7 +3,7 @@ module Suite exposing (main)
 import Benchmark exposing (Benchmark, describe)
 import Benchmark.Runner exposing (BenchmarkProgram, program)
 import FNV1a
-import Old.FNV1a
+import Murmur3
 
 
 main : BenchmarkProgram
@@ -14,11 +14,11 @@ main =
 suite : Benchmark
 suite =
     describe "FNV1a"
-        [ Benchmark.compare "Old vs New"
-            "Old"
-            oldView
-            "New"
-            newView
+        [ Benchmark.compare "FNV vs Murmur3"
+            "Murmur3"
+            (\_ -> Murmur3.hashString 1024 testCase)
+            "FNV1a"
+            (\_ -> FNV1a.hash testCase)
         ]
 
 
@@ -34,13 +34,3 @@ testCase =
     background-color:rgb(27, 217, 130);
     vertical-align:middle;
 }"""
-
-
-oldView : () -> Int
-oldView _ =
-    Old.FNV1a.hash testCase
-
-
-newView : () -> Int
-newView _ =
-    FNV1a.hash testCase
