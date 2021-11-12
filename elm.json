@@ -2,7 +2,7 @@
     "type": "package",
     "name": "robinheghan/fnv1a",
     "summary": "An implementation of the FNV-1a hash function for Elm",
-    "license": "MIT",
+    "license": "BSD-3-Clause",
     "version": "1.0.0",
     "exposed-modules": [
         "FNV1a"

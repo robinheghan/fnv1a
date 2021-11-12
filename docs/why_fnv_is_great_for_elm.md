@@ -43,4 +43,4 @@ Since it hashes a byte at a time, it's simple to implement correctly in Elm with
 
 The benchmark in this repo shows that FNV is 60% faster than Murmur3 in Chrome, which is a noticable difference.
 
-Because of this, I would recommend that people would switch from `robinheghan/murmur3` and use `robinheghan/fnv-1a` instead. It's not only faster, but also more correct.
+Because of this, I would recommend that people would switch from `robinheghan/murmur3` and use `robinheghan/fnv1a` instead. It's not only faster, but also more correct.
