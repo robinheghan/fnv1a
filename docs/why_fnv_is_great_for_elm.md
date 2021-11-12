@@ -15,13 +15,13 @@ Instead, a non-cryptographic hash function tends to favor two things:
 * Speed. How quickly can you turn a string into its integer representation.
 * Distribution. How low is the probability that two different strings has the same integer representation (also known as a collision).
 
-Murmur3 is pretty good at both of these things. Unfortunetly, the way it works is hard to implement correctly in Elm.
+Murmur3 is pretty good at both of these things. Unfortunately, the way it works is hard to implement correctly in Elm.
 
 ## How Murmur3 achieves good performance
 
 Hash functions tend to involve multiplying a combination of the previous hash value and the current character with, a prime number. This operation is, relatively speaking, expensive. Murmur3 works by first combining four 8-bit characters into a 32-bit integer, and then perform the remaining hash steps on that accumulated value. So, instead of performing multiplication every 8-bits, it does so every 32-bits instead.
 
-Elm uses JavaScript strings, which are encoded using UTF-16. This means that every character is _at least_ 16-bits. All the characters in the world cannot fit within 16-bits, though (think Chinese, or emoji's), so certain characters are split in two 16-bit pairs.
+Elm uses JavaScript strings, which are encoded using UTF-16. This means that every character is _at least_ 16-bits. All the characters in the world cannot fit within 16-bits though (think Chinese, or emoji's), so certain characters are split in two 16-bit pairs.
 
 The only way to iterate over the characters of a string in Elm, is by using `String.foldl` or `String.foldr`. These functions try hard to iterate over each individual character, regardless of its encoding, which means you have to manually check if the character is 16- or 32-bits in size.
 
@@ -41,6 +41,6 @@ FNV is another non-cryptographic hash function with good performance and good di
 
 Since it hashes a byte at a time, it's simple to implement correctly in Elm without any overhead, even when decoding each character into a UTF-8 code point first to support any kind of language.
 
-The benchmark in this repo shows that FNV is 60% faster than Murmur3 in Chrome, which is a noticable difference.
+The benchmark in this repo shows that FNV is 60% faster than Murmur3 in Chrome, which is a noticeable difference.
 
 Because of this, I would recommend that people would switch from `robinheghan/murmur3` and use `robinheghan/fnv1a` instead. It's not only faster, but also more correct.
