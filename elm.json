@@ -1,6 +1,6 @@
 {
     "type": "package",
-    "name": "robinheghan/fnv1a",
+    "name": "robinheghan/fnv-1a",
     "summary": "An implementation of the FNV-1a hash function for Elm",
     "license": "MIT",
     "version": "1.0.0",
