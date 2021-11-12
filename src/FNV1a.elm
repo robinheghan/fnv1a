@@ -1,22 +1,43 @@
-module FNV1a exposing
-    ( hash
-    , hashWithSeed
-    , initialSeed
-    )
+module FNV1a exposing (hash, hashWithSeed, initialSeed)
+
+{-|
+
+@docs hash, hashWithSeed, initialSeed
+
+-}
 
 import Bitwise as Bit
 
 
+{-| The initial seed represents the starting point of a hash.
+In other words:
+
+    hash "" == initialSeed
+
+-}
 initialSeed : Int
 initialSeed =
     0x811C9DC5
 
 
+{-| Turn a string into an integer value based on its contents.
+When passed the empty string, the `initialSeed` is returned.
+
+    hash "Lorem ipsum" == 2898375356
+
+-}
 hash : String -> Int
 hash str =
     hashWithSeed str initialSeed
 
 
+{-| Like `hash`, this turns a string into an integer value.
+It differs in that you can provide your own seed, or your own initial hash value.
+This allows you to hash two, or more, strings in sequence without concatenating them first.
+
+    hashWithSeed "ipsum" (hash "Lorem ") == hash "Lorem ipsum"
+
+-}
 hashWithSeed : String -> Int -> Int
 hashWithSeed str seed =
     Bit.shiftRightZfBy 0 (String.foldl utf32ToUtf8 seed str)
@@ -24,6 +45,7 @@ hashWithSeed str seed =
 
 utf32ToUtf8 : Char -> Int -> Int
 utf32ToUtf8 char acc =
+    {- Implementation copied from: https://github.com/zwilias/elm-utf-tools/tree/2.0.1 -}
     let
         byte =
             Char.toCode char
@@ -52,7 +74,7 @@ utf32ToUtf8 char acc =
 
 hasher : Int -> Int -> Int
 hasher byte hashValue =
-    {- Implementation ported from : https://gist.github.com/vaiorabbit/5657561 -}
+    {- Implementation ported from: https://gist.github.com/vaiorabbit/5657561 -}
     let
         mixed =
             Bit.xor byte hashValue

@@ -20,4 +20,9 @@ suite =
             \_ ->
                 FNV1a.hash "💩"
                     |> Expect.equal 949092445
+        , test "Hash with seed" <|
+            \_ ->
+                FNV1a.hash "Lorem "
+                    |> FNV1a.hashWithSeed "ipsum"
+                    |> Expect.equal (FNV1a.hash "Lorem ipsum")
         ]
